@@ -1,13 +1,15 @@
+const asyncHandler = require('express-async-handler')
+const Product = require('../models/productSchema')
+
 // Retrieve products
 const productsData = require("../data/products-data");
-const getProducts = (req, res, next) => {
-    res.status(201).json({
-        message: "Handling GET request for /products...",
-        product: productsData.product1
-    })
-}
+const getProducts = asyncHandler(async(req, res, next) => {
 
-const gertProduct = (req, res, next) => {
+    const product = await Product.find();
+    res.send(product)
+})
+
+const getProduct = asyncHandler(async(req, res, next) => {
     const id = req.params.productID;
     if (id === "UNIQUE_ID") {
         res.json({
@@ -22,25 +24,20 @@ const gertProduct = (req, res, next) => {
             message: `We've got id`
         })
     }
-}
+})
 
 //Set
 
-const setProduct = (req, res, next) => {
-    const user = {
-        name: req.body.name,
-        age: req.body.age
-    }
-    res.status(201).send({
-        message: "Handling GET request for /products...",
-        product: productsData.product2,
-        username: user.name
+const setProduct = asyncHandler(async(req, res, next) => {
+    const product = await Product.create({
+        text: req.body.text,
     })
-}
+    res.status(201).send(product)
+})
 
 //PUT
 
-const updateProduct = (req, res) => {
+const updateProduct = asyncHandler(async(req, res) => {
     console.log(req.body)
 
     if (!req.body.name){
@@ -51,17 +48,17 @@ const updateProduct = (req, res) => {
     res.status(201).json({
         message: `Product updated: ${req.params.productID}`
     })
-}
+})
 
-const deleteProduct = (req, res) => {
+const deleteProduct = asyncHandler(async(req, res) => {
     res.json({
         message: `Product Deleted ${req.params.productID}`
     })
-}
+})
 
 module.exports = {
     getProducts,
-    gertProduct,
+    getProduct,
     setProduct,
     updateProduct,
     deleteProduct

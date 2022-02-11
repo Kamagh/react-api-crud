@@ -21,5 +21,4 @@ module.exports = ordersData = {
     },
 
 }
-console.log(ordersData)
 

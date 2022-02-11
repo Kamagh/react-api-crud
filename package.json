@@ -7,7 +7,6 @@
     "test": "node test.js",
     "dev": "nodemon server.js",
     "start": "node server.js"
-
   },
   "repository": {
     "type": "git",
@@ -29,6 +28,10 @@
     "dotenv": "^14.3.0",
     "eslint": "^8.7.0",
     "express": "^4.17.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^6.2.1"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.15"
   }
 }
