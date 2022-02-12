@@ -1,18 +1,13 @@
 const express = require('express');
+const dotenv = require("dotenv").config();
 const connectDB = require('./src/config/db');
 const productRoutes = require("./src/routes/products");
 const orderRoutes = require("./src/routes/orders");
-const dotenv = require("dotenv").config();
+const {errorHandler} = require("./src/middleware/errorHandler")
 const app = express();
 connectDB();
 
 const port = process.env.PORT || 5588;
-
-/*app.get('/', (req, res) => {
-    res.json({
-        message: "Server started"
-    })
-});*/
 
 app.use(express.json()); // body
 app.use(express.urlencoded({extended: false})); //special body x-www
@@ -21,7 +16,9 @@ app.use(express.text());
 app.use('/api/products', productRoutes) // localhost/
 app.use('/api/orders', orderRoutes)
 
-app.use((req, res, next) => {
+app.use(errorHandler);
+
+/*app.use((req, res, next) => {
     const error = new Error('Request Not Found.');
     error.status = 404;
     next(error);
@@ -33,9 +30,7 @@ app.use((error, req, res, next) => {
         error: error.message
     })
 
-});
-
-
+});*/
 
 //const server = http.createServer(app);
 

@@ -4,6 +4,10 @@ const productSchema = mongoose.Schema({
     text: {
         type: String,
         required: [true, "Please add some text..."],
+    },
+    price: {
+        type: Number,
+        required: [true, "Please add some price"]
     }
 }, {
     timestamps: true
