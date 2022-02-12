@@ -39,22 +39,23 @@ const setProduct = asyncHandler(async(req, res, next) => {
 //PUT
 
 const updateProduct = asyncHandler(async(req, res) => {
-    console.log(req.body)
 
-    if (!req.body.name){
-        const err = new Error ('Product Name is missing');
-        err.status = 401;
-        throw err;
-    }
-    res.status(201).json({
-        message: `Product updated: ${req.params.productID}`
+    const updatedProduct = await Product.findOneAndUpdate({
+        id: req.params.productID
+    }, {
+        text: "Hello Updated product"
+    }, {
+        new: true
     })
+    res.status(201).json(updatedProduct)
 })
 
 const deleteProduct = asyncHandler(async(req, res) => {
-    res.json({
-        message: `Product Deleted ${req.params.productID}`
-    })
+
+    const id = req.params.productID
+
+    const deletedProduct = await Product.findByIdAndRemove(id)
+    res.status(201).json(deletedProduct)
 })
 
 module.exports = {

@@ -9,15 +9,19 @@ const {
     updateProduct,
     deleteProduct
 } = require('../controllers/productController')
-/*
-router
+/*router
     .get('/', getProducts)
     .post('/', setProduct)
-    .get('/:productID', gertProduct)
+    .get('/:productID', getProduct)
     .put('/:productID', updateProduct)
     .delete('/:productID', deleteProduct)*/
 
-router.route('/').get(getProducts).post(setProduct)
-router.route('/:productID').get(getProduct).put(updateProduct).delete(deleteProduct);
+router.route('/')
+    .get(getProducts)
+    .post(setProduct)
+router.route('/:productID')
+    .get(getProduct)
+    .put(updateProduct)
+    .delete(deleteProduct);
 
 module.exports = router;
